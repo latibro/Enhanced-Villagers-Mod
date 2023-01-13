@@ -1,26 +1,28 @@
 {
   "schema_version": 1,
   "mixin": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "enhancedvillagers.mixins.json",
+    "enhancedvillagers-common.mixins.json"
   ],
   "quilt_loader": {
     "group": "${group}",
-    "id": "examplemod",
+    "id": "enhancedvillagers",
     "version": "${version}",
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
-    "authors": ["Me!"],
+    "name": "Enhanced Villagers",
+    "description": "",
+    "authors": [
+      "Latibro"
+    ],
     "contact": {
-      "sources": "https://github.com/architectury/architectury-templates"
+      "sources": "https://github.com/latibro/Enhanced-Villagers-Mod"
     },
     "license": "Insert License Here",
-    "icon": "assets/examplemod/icon.png",
+    "icon": "assets/enhancedvillagers/icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
     "entrypoints": {
       "init": [
-        "net.examplemod.quilt.ExampleModQuilt"
+        "latibro.minecraft.enhancedvillagers.quilt.EnhancedVillagersModQuilt"
       ]
     },
     "depends": [

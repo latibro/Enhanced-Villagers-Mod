@@ -4,30 +4,29 @@ loaderVersion = "[43,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "examplemod"
+modId = "enhancedvillagers"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Enhanced Villagers"
+authors = "Latibro"
 description = '''
-This is an example description! Tell everyone what your mod is about!
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.enhancedvillagers]]
 modId = "forge"
 mandatory = true
 versionRange = "[43,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.enhancedvillagers]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.enhancedvillagers]]
 modId = "architectury"
 mandatory = true
 versionRange = "[6.2.43,)"
