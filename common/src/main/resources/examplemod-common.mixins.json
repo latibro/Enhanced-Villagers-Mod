@@ -6,6 +6,8 @@
     "MixinTitleScreen"
   ],
   "mixins": [
+    "MixinAbstractVillager",
+    "MixinVillager"
   ],
   "injectors": {
     "defaultRequire": 1
