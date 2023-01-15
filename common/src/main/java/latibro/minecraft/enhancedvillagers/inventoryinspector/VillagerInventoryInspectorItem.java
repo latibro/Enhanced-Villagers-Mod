@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class VillagerInventoryInspectorItem extends Item {
     public VillagerInventoryInspectorItem() {
-        super(new Properties().tab(EnhancedVillagersMod.EXAMPLE_TAB));
+        super(new Properties().tab(EnhancedVillagersMod.ENHANGED_VILLAGERS_TAB));
     }
 
     @Override

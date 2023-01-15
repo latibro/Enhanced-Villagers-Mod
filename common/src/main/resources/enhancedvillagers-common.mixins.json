@@ -3,11 +3,10 @@
   "package": "latibro.minecraft.enhancedvillagers.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "MixinTitleScreen"
   ],
   "mixins": [
-    "MixinAbstractVillager",
-    "MixinVillager"
+    "AbstractVillagerMixin",
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

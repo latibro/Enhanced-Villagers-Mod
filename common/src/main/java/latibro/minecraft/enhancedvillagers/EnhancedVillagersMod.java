@@ -30,12 +30,10 @@ public class EnhancedVillagersMod {
     // We can use this if we don't want to use DeferredRegister
     public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
     // Registering a new creative tab
-    public static final CreativeModeTab EXAMPLE_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "example_tab"), () ->
-            new ItemStack(EnhancedVillagersMod.EXAMPLE_ITEM.get()));
+    public static final CreativeModeTab ENHANGED_VILLAGERS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "enchanged_villagers"), () ->
+            new ItemStack(EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get()));
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
-    public static final RegistrySupplier<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () ->
-            new Item(new Item.Properties().tab(EnhancedVillagersMod.EXAMPLE_TAB)));
     public static final RegistrySupplier<Item> VILLAGER_INVENTORY_INSPECTOR_ITEM = ITEMS.register("villager_inventory_inspector", VillagerInventoryInspectorItem::new);
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(MOD_ID, Registry.MENU_REGISTRY);
