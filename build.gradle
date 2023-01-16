@@ -21,6 +21,14 @@ subprojects {
         // The following line declares the yarn mappings you may select this one as well.
         // mappings "net.fabricmc:yarn:1.19.2+build.3:v2"
     }
+
+    if (rootProject.enabled_platforms.split(",").contains(name)) {
+        tasks {
+            remapJar {
+                archiveAppendix = project.name
+            }
+        }
+    }
 }
 
 allprojects {
@@ -28,7 +36,7 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = rootProject.archives_base_name
+    archivesBaseName = "${rootProject.archives_base_name}-${rootProject.minecraft_version}"
     version = rootProject.mod_version
     group = rootProject.maven_group
 
@@ -48,4 +56,24 @@ allprojects {
     java {
         withSourcesJar()
     }
+}
+
+// Register a custom "collect jars" task that copies the loaders mod jars
+// into the root project's build/dist. This makes it easier for me to find them
+// for testing and releasing.
+task collectJars(type: Copy) {
+    // Find the remapJar tasks of projects that aren't :common (so :fabric and :forge) and depend on them.
+    def remapJarTasks = subprojects.findAll({ rootProject.enabled_platforms.split(",").contains(it.name) }).collect { it.tasks.named("remapJar") }
+    dependsOn remapJarTasks
+
+    // Copy the outputs of the tasks...
+    from remapJarTasks
+
+    // ...into build/dist
+    into new File(buildDir, "dist")
+}
+
+// Set up assemble to depend on the collectJars task, so it gets run on gradlew build.
+assemble {
+    dependsOn collectJars
 }

@@ -1,12 +1,10 @@
 package latibro.minecraft.enhancedvillagers;
 
-import com.google.common.base.Suppliers;
 import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.Registries;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
@@ -23,13 +21,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.function.Supplier;
-
 public class EnhancedVillagersMod {
     public static final String MOD_ID = "enhancedvillagers";
-    // We can use this if we don't want to use DeferredRegister
-    public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
-    // Registering a new creative tab
+
     public static final CreativeModeTab ENHANGED_VILLAGERS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "enchanged_villagers"), () ->
             new ItemStack(EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get()));
 
