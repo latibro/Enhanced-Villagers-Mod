@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Villager.class)
-public class VillagerMixin {
+public abstract class VillagerMixin {
     @Inject(method = "startTrading", at = @At("HEAD"))
     private void mixinStartTrading(CallbackInfo info) {
         System.out.println("XXX: Start trading");
@@ -16,6 +16,7 @@ public class VillagerMixin {
     @Inject(method = "updateTrades", at = @At("HEAD"))
     private void mixinUpdateTrades(CallbackInfo info) {
         System.out.println("XXX: Update trades");
+        System.out.println("XXX: Update trades " + this);
     }
 
 }

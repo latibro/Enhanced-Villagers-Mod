@@ -34,14 +34,19 @@ public abstract class AbstractVillagerMixin {
     @Shadow
     public abstract boolean showProgressBar();
 
-    @Inject(method = "getOffers", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getOffers", at = @At("RETURN"))
     private void mixinGetOffers(CallbackInfoReturnable<MerchantOffers> callbackInfo) {
         System.out.println("XXX: Getting offers");
-        System.out.println("XXX: Getting offers x- " + this);
-        System.out.println("XXX: Getting offers y- " + callbackInfo.getReturnValue());
-        MerchantOffers offers = new MerchantOffers();
-        callbackInfo.getReturnValue().forEach(offer -> offers.add(new InventoryMerchantOffer(offer, getInventory())));
-        callbackInfo.setReturnValue(offers);
+        System.out.println("XXX: Getting offers " + this + " " + callbackInfo.getReturnValue());
+        callbackInfo.getReturnValue().forEach(offer ->
+                System.out.println("XXX: Getting offers - trade " + offer.getResult())
+        );
+        callbackInfo.getReturnValue().replaceAll(offer -> {
+            if (offer instanceof InventoryMerchantOffer) {
+                return offer;
+            }
+            return new InventoryMerchantOffer(offer, getInventory());
+        });
     }
 
     @Inject(method = "notifyTrade", at = @At("TAIL"))
