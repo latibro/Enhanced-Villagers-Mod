@@ -2,6 +2,7 @@ package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 
 import latibro.minecraft.enhancedvillagers.EnhancedVillagersMod;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +22,7 @@ net.minecraft.world.inventory.MerchantMenu.MerchantMenu
 net.minecraft.world.item.trading.Merchant.openTradingScreen
  */
 public class VillagerInventoryMenu extends AbstractContainerMenu {
-    private final Villager villager;
+    private final AbstractVillager villager;
 
     /* Client side constructor */
     public VillagerInventoryMenu(int id, Inventory playerInventory) {
@@ -29,7 +30,7 @@ public class VillagerInventoryMenu extends AbstractContainerMenu {
     }
 
     /* Server side constructor */
-    public VillagerInventoryMenu(int id, Inventory playerInventory, Villager villager) {
+    public VillagerInventoryMenu(int id, Inventory playerInventory, AbstractVillager villager) {
         super(EnhancedVillagersMod.VILLAGER_INVENTORY_MENU.get(), id);
         this.villager = villager;
 

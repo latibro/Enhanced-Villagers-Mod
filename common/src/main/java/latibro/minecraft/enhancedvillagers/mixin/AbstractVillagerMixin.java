@@ -1,79 +1,61 @@
 package latibro.minecraft.enhancedvillagers.mixin;
 
-import net.minecraft.world.SimpleContainer;
+import latibro.minecraft.enhancedvillagers.trade.TradeOffersManager;
 import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.InventoryCarrier;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraft.world.item.trading.Merchant;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractVillager.class)
-public abstract class AbstractVillagerMixin implements Merchant {
+public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchant {
 
-    @Shadow
-    public abstract SimpleContainer getInventory();
-
-    /*
-    @Accessor("offers")
-    @Mutable
-    private abstract MerchantOffers mixinFieldGetOffers() {
-        System.out.println("XXX: access get offers " + this);
-        return getOffers();
-    }
-
-    @Accessor("offers")
-    @Mutable
-    private void mixinFieldSetOffers(MerchantOffers offers) {
-        System.out.println("XXX: access set offers " + this);
-    }
-     */
-
-    /*
-    @Redirect(method = "*", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/npc/AbstractVillager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;", opcode = Opcodes.GETFIELD))
-    private MerchantOffers mixinFieldGetOffers(Villager villager) {
-        System.out.println("XXX: Get offer field redirect " + this);
-        return getOffers();
-    }
-
-    @Redirect(method = "*", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/npc/AbstractVillager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;", opcode = Opcodes.PUTFIELD))
-    private void mixinFieldSetOffers(MerchantOffers offers) {
-        System.out.println("XXX: Set offer field redirect " + this);
-        setOffers(offers);
-    }
-     */
-
-
-/*
-    @Inject(method = "getOffers", at = @At("HEAD"), cancellable = true)
-    private void mixinGetOffers(CallbackInfoReturnable<MerchantOffers> callbackInfo) {
+    @Override
+    //@Overwrite()
+    public MerchantOffers getOffers() {
         System.out.println("XXX: Getting offers " + this + " " + isClientSide());
-        //if (!isClientSide()) {
-        callbackInfo.setReturnValue(new TradeOffersManager(null).getOffers());
-        callbackInfo.getReturnValue().forEach(offer ->
+        MerchantOffers offers = new TradeOffersManager((AbstractVillager) (Object) this).getOffers();
+        offers.forEach(offer ->
                 System.out.println("XXX: Getting offers 2 - trade " + offer.getCostA() + " " + offer.getCostB() + " " + offer.getResult())
         );
-        //}
+        //setOffers(offers); // Done to satisfy original code that access offers direct
+        return offers;
     }
-*/
 
-    /*
     @Inject(method = "notifyTrade", at = @At("TAIL"))
-    private void mixinNotifyTrade(MerchantOffer merchantOffer, CallbackInfo callbackInfo) {
-        System.out.println("XXX: notify trade " + this + " " + merchantOffer);
+    private void mixinNotifyTrade(MerchantOffer offer, CallbackInfo callbackInfo) {
+        System.out.println("XXX: Notify trade " + this);
 
-        getInventory().removeItemType(merchantOffer.getResult().getItem(), merchantOffer.getResult().getCount());
-        getInventory().addItem(merchantOffer.getCostA());
-        if (!merchantOffer.getCostA().isEmpty()) {
-            getInventory().addItem(merchantOffer.getCostB());
+        getInventory().removeItemType(offer.getResult().getItem(), offer.getResult().getCount());
+        getInventory().addItem(offer.getCostA());
+        if (!offer.getCostA().isEmpty()) {
+            getInventory().addItem(offer.getCostB());
         }
 
         MerchantMenu merchantMenu = (MerchantMenu) getTradingPlayer().containerMenu;
-        boolean canRestock = false;
-        int villagerLevel = 1; //villager.getVillagerDate().getLevel();
-
         MerchantOffers merchantOffers = getOffers();
-        getTradingPlayer().sendMerchantOffers(merchantMenu.containerId, merchantOffers, villagerLevel, getVillagerXp(), showProgressBar(), canRestock);
-        //getTradingPlayer().sendMerchantOffers(merchantMenu.containerId, merchantOffers, merchantMenu.getTraderLevel(), merchantMenu.getTraderXp(), merchantMenu.showProgressBar(), merchantMenu.canRestock());
+        getTradingPlayer().sendMerchantOffers(merchantMenu.containerId, merchantOffers, getVillagerLevel(), getVillagerXp(), showProgressBar(), canRestock());
     }
-     */
+
+    @Shadow
+    protected abstract void updateTrades();
+
+    @Inject(method = "addOffersFromItemListings", at = @At("HEAD"), cancellable = true)
+    protected void mixinAddOffersFromItemListings(MerchantOffers merchantOffers, VillagerTrades.ItemListing[] itemListings, int i, CallbackInfo ci) {
+        // Cancel original code
+        ci.cancel();
+    }
+
+    protected abstract int getVillagerLevel();
+
+    @Shadow
+    public abstract boolean isTrading();
 
 }
