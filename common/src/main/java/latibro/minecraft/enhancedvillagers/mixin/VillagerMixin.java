@@ -85,4 +85,11 @@ public abstract class VillagerMixin extends AbstractVillager implements Merchant
         villager.setOffers(offers);
     }
 
+    @Redirect(method = "customServerAiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/npc/Villager;stopTrading()V"))
+    private void mixinCancelStopTradingUnemployedVillager(Villager villager) {
+        System.out.println("XXX: Cancel stop trading for unemployed villager " + this);
+        // Cancel stopTrading() for unemployed villager
+        // Allowing all villagers to trade
+    }
+
 }
