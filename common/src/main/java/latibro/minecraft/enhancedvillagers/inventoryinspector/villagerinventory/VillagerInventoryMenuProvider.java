@@ -2,7 +2,7 @@ package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -10,9 +10,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class VillagerInventoryMenuProvider implements MenuProvider {
 
-    private final Villager villager;
+    private final AbstractVillager villager;
 
-    public VillagerInventoryMenuProvider(Villager villager) {
+    public VillagerInventoryMenuProvider(AbstractVillager villager) {
         this.villager = villager;
     }
 
