@@ -36,11 +36,14 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
 
+// Workaround as Forge expects version to start with a digit, which SNAPSHOT builds doesn't
+def modVersion = project.version.matches(/\d.*/) ? project.version : "0-${project.version}"
+
 processResources {
     inputs.property "version", project.version
 
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand "version": modVersion
     }
 }
 
