@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
+    id 'com.palantir.git-version' version '0.15.0'
 }
 
 architectury {
@@ -31,14 +32,40 @@ subprojects {
     }
 }
 
+def getVersionString() {
+    def details = versionDetails()
+
+    if (details.branchName == "master" && details.commitDistance == 0 && details.isCleanTag) {
+        def ver = details.lastTag.replaceFirst(/^v/, "")
+        return "${ver}"
+    }
+
+    if (details.isCleanTag) {
+        return "SNAPSHOT.${details.gitHash}"
+    }
+
+    return "SNAPSHOT.${details.gitHash}"
+    //return "SNAPSHOT.${details.gitHash}.${new Date().format("yyyyMMddHHmmssSSS")}"
+}
+
+group = rootProject.maven_group
+ext.archivesBaseName = "${rootProject.archives_base_name}-${rootProject.minecraft_version}"
+version = getVersionString()
+
+//FIXME Workaround prefixing "0-" as Forge expects version to start with a digit
+version = version.matches(/\d.*/) ? version : "0-${version}"
+
+println "group - ${group}"
+println "archivesBaseName - ${archivesBaseName}"
+println "version - ${version}"
+
 allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = "${rootProject.archives_base_name}-${rootProject.minecraft_version}"
-    version = rootProject.mod_version
-    group = rootProject.maven_group
+    archivesBaseName = rootProject.archivesBaseName
+    version = rootProject.version
 
     repositories {
         // Add repositories to retrieve artifacts from in here.
