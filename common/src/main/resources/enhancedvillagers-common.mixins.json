@@ -6,7 +6,8 @@
   ],
   "mixins": [
     "AbstractVillagerMixin",
-    "VillagerMixin"
+    "VillagerMixin",
+    "WanderingTraderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
