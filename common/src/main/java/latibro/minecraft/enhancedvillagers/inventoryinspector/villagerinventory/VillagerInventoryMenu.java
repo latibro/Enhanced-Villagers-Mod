@@ -3,7 +3,6 @@ package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 import latibro.minecraft.enhancedvillagers.EnhancedVillagersMod;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,13 +19,15 @@ net.minecraft.world.inventory.MenuConstructor.createMenu
 
 net.minecraft.world.inventory.MerchantMenu.MerchantMenu
 net.minecraft.world.item.trading.Merchant.openTradingScreen
+
+net.minecraft.world.inventory.ChestMenu
  */
 public class VillagerInventoryMenu extends AbstractContainerMenu {
     private final AbstractVillager villager;
 
     /* Client side constructor */
     public VillagerInventoryMenu(int id, Inventory playerInventory) {
-        this(id, playerInventory, (Villager) null);
+        this(id, playerInventory, null);
     }
 
     /* Server side constructor */
@@ -34,20 +35,27 @@ public class VillagerInventoryMenu extends AbstractContainerMenu {
         super(EnhancedVillagersMod.VILLAGER_INVENTORY_MENU.get(), id);
         this.villager = villager;
 
+        int villagerInventoryPosXOffset = 18;
+
         // Villager inventory
-        for (int j = 0; j < 8; ++j) {
-            int villagerInventorySlotIndex = j;
-            int slotPosX = 8 + j * 18;
-            int slotPosY = 18;
-            this.addSlot(new Slot(villager != null ? villager.getInventory() : new SimpleContainer(8), villagerInventorySlotIndex, slotPosX, slotPosY));
+        SimpleContainer villagerInventory = villager != null ? villager.getInventory() : new SimpleContainer(27);
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 9; k++) {
+                int villagerInventorySlotIndex = (j * 9) + k;
+                int slotPosX = 8 + (k * 18);
+                int slotPosY = villagerInventoryPosXOffset + (j * 18);
+                this.addSlot(new Slot(villagerInventory, villagerInventorySlotIndex, slotPosX, slotPosY));
+            }
         }
+
+        int playerInventoryPosXOffset = villagerInventoryPosXOffset + 85 - 18;
 
         // Player inventory
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
                 int playerInventorySlotIndex = (j * 9) + k + 9;
                 int slotPosX = 8 + (k * 18);
-                int slotPosY = 84 + (j * 18);
+                int slotPosY = playerInventoryPosXOffset + (j * 18);
                 this.addSlot(new Slot(playerInventory, playerInventorySlotIndex, slotPosX, slotPosY));
             }
         }
@@ -56,18 +64,32 @@ public class VillagerInventoryMenu extends AbstractContainerMenu {
         for (int j = 0; j < 9; j++) {
             int playerInventorySlotIndex = j;
             int slotPosX = 8 + (j * 18);
-            int slotPosY = 142;
+            int slotPosY = playerInventoryPosXOffset + 58;
             this.addSlot(new Slot(playerInventory, playerInventorySlotIndex, slotPosX, slotPosY));
         }
     }
 
     @Override
     public ItemStack quickMoveStack(Player player, int i) {
-        return null; //TODO implement
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = (Slot) this.slots.get(i);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemStack2 = slot.getItem();
+            itemStack = itemStack2.copy();
+            if (i < 27 ? !this.moveItemStackTo(itemStack2, 27, this.slots.size(), true) : !this.moveItemStackTo(itemStack2, 0, 27, false)) {
+                return ItemStack.EMPTY;
+            }
+            if (itemStack2.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+        }
+        return itemStack;
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return true; //TODO check if villager is still in range
+        return this.villager.getInventory().stillValid(player);
     }
 }
