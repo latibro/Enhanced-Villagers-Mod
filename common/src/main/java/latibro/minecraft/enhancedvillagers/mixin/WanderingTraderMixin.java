@@ -7,6 +7,7 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -19,13 +20,21 @@ public abstract class WanderingTraderMixin extends AbstractVillagerMixin {
         return 1;
     }
 
-    @Override
-    protected void updateTrades() {
+    /**
+     * @author Latibro
+     * @reason Replacing trade system
+     */
+    @Overwrite
+    public void updateTrades() {
         System.out.println("XXX: Update trades " + this);
         // Cancel original code
         // Do nothing
     }
 
+    /**
+     * @author Latibro
+     * @reason Cancel start trade if used item is inventory inspector
+     */
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     protected void mixinMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemstack = player.getItemInHand(hand);
