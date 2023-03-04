@@ -77,8 +77,8 @@ allprojects {
     }
 
     dependencies {
-        // Groovy
         implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.8'
+        testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
     }
 
     tasks.withType(JavaCompile) {
