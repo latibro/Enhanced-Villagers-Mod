@@ -1,10 +1,12 @@
-package latibro.minecraft.enhancedvillagers;
+package latibro.minecraft.enhancedvillagers
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
-import dev.architectury.platform.Platform;
+import dev.architectury.injectables.annotations.ExpectPlatform
+import dev.architectury.platform.Platform
+import groovy.transform.CompileStatic
 
-import java.nio.file.Path;
+import java.nio.file.Path
 
+@CompileStatic
 public class EnhancedVillagersExpectPlatform {
     /**
      * We can use {@link Platform#getConfigFolder()} but this is just an example of {@link ExpectPlatform}.

@@ -1,13 +1,14 @@
-package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory;
+package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 
-import latibro.minecraft.enhancedvillagers.EnhancedVillagersMod;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
+import groovy.transform.CompileStatic
+import latibro.minecraft.enhancedvillagers.EnhancedVillagersMod
+import net.minecraft.world.SimpleContainer
+import net.minecraft.world.entity.npc.AbstractVillager
+import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.Slot
+import net.minecraft.world.item.ItemStack
 
 /*
 net.minecraft.world.inventory.HorseInventoryMenu
@@ -22,15 +23,19 @@ net.minecraft.world.item.trading.Merchant.openTradingScreen
 
 net.minecraft.world.inventory.ChestMenu
  */
+
+@CompileStatic
 public class VillagerInventoryMenu extends AbstractContainerMenu {
     private final AbstractVillager villager;
 
     /* Client side constructor */
+
     public VillagerInventoryMenu(int id, Inventory playerInventory) {
         this(id, playerInventory, null);
     }
 
     /* Server side constructor */
+
     public VillagerInventoryMenu(int id, Inventory playerInventory, AbstractVillager villager) {
         super(EnhancedVillagersMod.VILLAGER_INVENTORY_MENU.get(), id);
         this.villager = villager;

@@ -1,13 +1,15 @@
-package latibro.minecraft.enhancedvillagers.trade;
+package latibro.minecraft.enhancedvillagers.trade
 
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
+import groovy.transform.CompileStatic
+import net.minecraft.world.SimpleContainer
+import net.minecraft.world.entity.npc.AbstractVillager
+import net.minecraft.world.entity.npc.Villager
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.trading.MerchantOffer
+import net.minecraft.world.item.trading.MerchantOffers
 
+@CompileStatic
 public class TradeOffersManager {
 
     private final AbstractVillager villager;
@@ -19,12 +21,12 @@ public class TradeOffersManager {
     public MerchantOffers getOffers() {
         MerchantOffers offers = new MerchantOffers();
 
-        if (villager instanceof Villager villager) {
+        if (villager instanceof Villager) {
             System.err.println("XXX requested items " + villager + " " + villager.getVillagerData().getProfession().requestedItems());
         }
 
         //TODO find items to buy, based on needed items not already in inventory
-        if (villager instanceof Villager villager && villager.wantsMoreFood()) {
+        if (villager instanceof Villager && villager.wantsMoreFood()) {
             boolean hasPayment = villager.getInventory().countItem(Items.EMERALD) > 0;
             offers.add(new MerchantOffer(new ItemStack(Items.BREAD, 6), new ItemStack(Items.EMERALD, 1), hasPayment ? 1 : 0, 0, 0f));
         }
@@ -41,7 +43,7 @@ public class TradeOffersManager {
                 continue;
             }
 
-            if (itemStack.is(Items.BREAD) && villager instanceof Villager villager && !villager.hasExcessFood()) {
+            if (itemStack.is(Items.BREAD) && villager instanceof Villager && !villager.hasExcessFood()) {
                 continue;
             }
 
