@@ -42,7 +42,7 @@ processResources {
 shadowJar {
     exclude "architectury.common.json"
 
-    configurations = [project.configurations.shadowCommon]
+    configurations = [project.configurations.shadow, project.configurations.shadowCommon]
     classifier "dev-shadow"
 }
 
