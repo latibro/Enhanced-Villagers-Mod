@@ -61,6 +61,7 @@ println "version - ${version}"
 
 allprojects {
     apply plugin: "java"
+    apply plugin: "groovy"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
@@ -75,6 +76,11 @@ allprojects {
         // for more information about repositories.
     }
 
+    dependencies {
+        // Groovy
+        implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.8'
+    }
+
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         options.release = 17
@@ -83,6 +89,19 @@ allprojects {
     java {
         withSourcesJar()
     }
+
+    /*
+    sourceSets {
+        main {
+            java {
+                srcDirs = [] // don't compile Java code twice
+            }
+            groovy {
+                srcDirs = ['src/main/groovy', 'src/main/java']
+            }
+        }
+    }
+    */
 }
 
 // Register a custom "collect jars" task that copies the loaders mod jars

@@ -1,13 +1,15 @@
-package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory;
+package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import org.jetbrains.annotations.Nullable;
+import groovy.transform.CompileStatic
+import net.minecraft.network.chat.Component
+import net.minecraft.world.MenuProvider
+import net.minecraft.world.entity.npc.AbstractVillager
+import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.AbstractContainerMenu
+import org.jetbrains.annotations.Nullable
 
+@CompileStatic
 public class VillagerInventoryMenuProvider implements MenuProvider {
 
     private final AbstractVillager villager;

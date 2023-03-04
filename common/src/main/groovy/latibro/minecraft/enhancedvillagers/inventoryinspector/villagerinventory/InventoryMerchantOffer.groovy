@@ -1,10 +1,12 @@
-package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory;
+package latibro.minecraft.enhancedvillagers.inventoryinspector.villagerinventory
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
+import groovy.transform.CompileStatic
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.world.SimpleContainer
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.trading.MerchantOffer
 
+@CompileStatic
 public class InventoryMerchantOffer extends MerchantOffer {
 
     private final MerchantOffer originalOffer;
@@ -73,7 +75,7 @@ public class InventoryMerchantOffer extends MerchantOffer {
     @Override
     public int getMaxUses() {
         if (offersTrade()) {
-            return merchantInventory.countItem(getResult().getItem()) / getResult().getCount();
+            return merchantInventory.countItem(getResult().getItem()) / getResult().getCount() as int;
         } else {
             return 0;
         }

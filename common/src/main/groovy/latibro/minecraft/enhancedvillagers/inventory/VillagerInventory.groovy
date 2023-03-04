@@ -1,8 +1,10 @@
-package latibro.minecraft.enhancedvillagers.inventory;
+package latibro.minecraft.enhancedvillagers.inventory
 
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.npc.AbstractVillager;
+import groovy.transform.CompileStatic
+import net.minecraft.world.SimpleContainer
+import net.minecraft.world.entity.npc.AbstractVillager
 
+@CompileStatic
 public class VillagerInventory extends SimpleContainer {
 
     private static final int INVENTORY_SIZE = 27; // 3 x 9
