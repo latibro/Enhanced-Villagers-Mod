@@ -2,6 +2,7 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
     id 'com.palantir.git-version' version '0.15.0'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 architectury {
@@ -64,6 +65,7 @@ allprojects {
     apply plugin: "groovy"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
+    apply plugin: "com.github.johnrengelman.shadow"
 
     archivesBaseName = rootProject.archivesBaseName
     version = rootProject.version
@@ -77,8 +79,9 @@ allprojects {
     }
 
     dependencies {
-        implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.8'
-        testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
+        implementation group: 'org.apache.groovy', name: 'groovy', version: groovy_version
+        shadow group: 'org.apache.groovy', name: 'groovy-all', version: groovy_version
+        testImplementation group: 'org.spockframework', name: 'spock-core', version: spock_version
     }
 
     tasks.withType(JavaCompile) {

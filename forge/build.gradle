@@ -32,7 +32,7 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
-    forgeRuntimeLibrary group: 'org.apache.groovy', name: 'groovy-all', version: '4.0.8'
+    forgeRuntimeLibrary group: 'org.apache.groovy', name: 'groovy-all', version: groovy_version
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
@@ -53,7 +53,7 @@ shadowJar {
     exclude "fabric.mod.json"
     exclude "architectury.common.json"
 
-    configurations = [project.configurations.shadowCommon]
+    configurations = [project.configurations.shadow, project.configurations.shadowCommon]
     classifier "dev-shadow"
 }
 
