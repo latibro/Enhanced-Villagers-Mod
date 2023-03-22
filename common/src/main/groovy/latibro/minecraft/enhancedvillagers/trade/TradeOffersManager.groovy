@@ -22,13 +22,25 @@ public class TradeOffersManager {
         MerchantOffers offers = new MerchantOffers();
 
         if (villager instanceof Villager) {
-            System.err.println("XXX requested items " + villager + " " + villager.getVillagerData().getProfession().requestedItems());
+            System.err.println(
+                    "XXX requested items " + villager +
+                    " " +
+                    villager.getVillagerData().getProfession().requestedItems()
+            );
         }
 
         //TODO find items to buy, based on needed items not already in inventory
         if (villager instanceof Villager && villager.wantsMoreFood()) {
             boolean hasPayment = villager.getInventory().countItem(Items.EMERALD) > 0;
-            offers.add(new MerchantOffer(new ItemStack(Items.BREAD, 6), new ItemStack(Items.EMERALD, 1), hasPayment ? 1 : 0, 0, 0f));
+            offers.add(
+                    new MerchantOffer(
+                            new ItemStack(Items.BREAD, 6),
+                            new ItemStack(Items.EMERALD, 1),
+                            hasPayment ? 1 : 0,
+                            0,
+                            0f
+                    )
+            );
         }
 
         //TODO find items to sell, based on not needed items in inventory

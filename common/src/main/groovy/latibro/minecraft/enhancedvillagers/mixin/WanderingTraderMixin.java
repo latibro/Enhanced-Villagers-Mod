@@ -36,7 +36,11 @@ public abstract class WanderingTraderMixin extends AbstractVillagerMixin {
      * @reason Cancel start trade if used item is inventory inspector
      */
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
-    protected void mixinMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    protected void mixinMobInteract(
+            Player player,
+            InteractionHand hand,
+            CallbackInfoReturnable<InteractionResult> cir
+    ) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.getItem() == EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get() && !isTrading()) {
             cir.setReturnValue(InteractionResult.PASS);

@@ -121,7 +121,13 @@ allprojects {
 // for testing and releasing.
 task collectJars(type: Copy) {
     // Find the remapJar tasks of projects that aren't :common (so :fabric and :forge) and depend on them.
-    def remapJarTasks = subprojects.findAll({ rootProject.enabled_platforms.split(",").contains(it.name) }).collect { it.tasks.named("remapJar") }
+    def remapJarTasks = subprojects.findAll(
+            {
+                rootProject.enabled_platforms.split(",").contains(it.name)
+            }
+    ).collect {
+        it.tasks.named("remapJar")
+    }
     dependsOn remapJarTasks
 
     // Copy the outputs of the tasks...
