@@ -45,10 +45,12 @@ def getVersionString() {
     }
 
     if (details.isCleanTag) {
-        return "SNAPSHOT.${details.gitHash}"
+        //return "SNAPSHOT.${details.gitHash}"
+        return "SNAPSHOT"
     }
 
-    return "SNAPSHOT.${details.gitHash}"
+    return "SNAPSHOT"
+    //return "SNAPSHOT.${details.gitHash}"
     //return "SNAPSHOT.${details.gitHash}.${new Date().format("yyyyMMddHHmmssSSS")}"
 }
 
@@ -135,6 +137,11 @@ task collectJars(type: Copy) {
 
     // ...into build/dist
     into new File(buildDir, "dist")
+
+    rename {
+        println "Rename file: ${it}"
+        it
+    }
 }
 
 // Set up assemble to depend on the collectJars task, so it gets run on gradlew build.
