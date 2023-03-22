@@ -38,7 +38,14 @@ public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchan
      * @author Latibro
      * @reason Make suse direct field access to "inventory" is redirected to "getInventory()"
      */
-    @Redirect(method = "*", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/npc/AbstractVillager;inventory:Lnet/minecraft/world/SimpleContainer;", opcode = Opcodes.GETFIELD))
+    @Redirect(
+            method = "*",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/entity/npc/AbstractVillager;inventory:Lnet/minecraft/world/SimpleContainer;",
+                    opcode = Opcodes.GETFIELD
+            )
+    )
     private SimpleContainer mixinFieldGetInventory(AbstractVillager villager) {
         System.out.println("XXX: Get inventory field redirect " + this);
         return villager.getInventory();
@@ -53,7 +60,12 @@ public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchan
         System.out.println("XXX: Getting offers " + this + " " + isClientSide());
         MerchantOffers offers = new TradeOffersManager((AbstractVillager) (Object) this).getOffers();
         offers.forEach(offer ->
-                System.out.println("XXX: Getting offers 2 - trade " + offer.getCostA() + " " + offer.getCostB() + " " + offer.getResult())
+                               System.out.println("XXX: Getting offers 2 - trade "
+                                                  + offer.getCostA()
+                                                  + " "
+                                                  + offer.getCostB()
+                                                  + " "
+                                                  + offer.getResult())
         );
         //setOffers(offers); // Done to satisfy original code that access offers direct
         return offers;
@@ -71,9 +83,16 @@ public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchan
         getInventory().addItem(offer.getCostA());
         getInventory().addItem(offer.getCostB());
 
-        MerchantMenu merchantMenu = (MerchantMenu) getTradingPlayer().containerMenu;
+        MerchantMenu   merchantMenu   = (MerchantMenu) getTradingPlayer().containerMenu;
         MerchantOffers merchantOffers = getOffers();
-        getTradingPlayer().sendMerchantOffers(merchantMenu.containerId, merchantOffers, getVillagerLevel(), getVillagerXp(), showProgressBar(), canRestock());
+        getTradingPlayer().sendMerchantOffers(
+                merchantMenu.containerId,
+                merchantOffers,
+                getVillagerLevel(),
+                getVillagerXp(),
+                showProgressBar(),
+                canRestock()
+        );
     }
 
     /**
@@ -81,7 +100,12 @@ public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchan
      * @reason Replacing trade system
      */
     @Inject(method = "addOffersFromItemListings", at = @At("HEAD"), cancellable = true)
-    protected void mixinAddOffersFromItemListings(MerchantOffers merchantOffers, VillagerTrades.ItemListing[] itemListings, int i, CallbackInfo ci) {
+    protected void mixinAddOffersFromItemListings(
+            MerchantOffers merchantOffers,
+            VillagerTrades.ItemListing[] itemListings,
+            int i,
+            CallbackInfo ci
+    ) {
         // Cancel original code
         ci.cancel();
     }

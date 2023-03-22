@@ -24,7 +24,14 @@ public abstract class VillagerMixin extends AbstractVillagerMixin implements Vil
      * @author Latibro
      * @reason Make suse direct field access to "offers" is redirected to "getOffers()"
      */
-    @Redirect(method = "*", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/npc/Villager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;", opcode = Opcodes.GETFIELD))
+    @Redirect(
+            method = "*",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/entity/npc/Villager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;",
+                    opcode = Opcodes.GETFIELD
+            )
+    )
     private MerchantOffers mixinFieldGetOffers(Villager villager) {
         System.out.println("XXX: Get offer field redirect " + this);
         return villager.getOffers();
@@ -34,7 +41,14 @@ public abstract class VillagerMixin extends AbstractVillagerMixin implements Vil
      * @author Latibro
      * @reason Make suse direct field access to "offers" is redirected to "setOffers()"
      */
-    @Redirect(method = "*", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/npc/Villager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;", opcode = Opcodes.PUTFIELD))
+    @Redirect(
+            method = "*",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/entity/npc/Villager;offers:Lnet/minecraft/world/item/trading/MerchantOffers;",
+                    opcode = Opcodes.PUTFIELD
+            )
+    )
     private void mixinFieldSetOffers(Villager villager, MerchantOffers offers) {
         System.out.println("XXX: Set offer field redirect " + this);
         villager.setOffers(offers);
@@ -60,7 +74,10 @@ public abstract class VillagerMixin extends AbstractVillagerMixin implements Vil
      * @author Latibro
      * @reason Cancelling stopTrading() if villager is unemployed, as we want unemployed villagers to be able to trade
      */
-    @Redirect(method = "customServerAiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/npc/Villager;stopTrading()V"))
+    @Redirect(
+            method = "customServerAiStep",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/npc/Villager;stopTrading()V")
+    )
     private void mixinCancelStopTradingUnemployedVillager(Villager villager) {
         //System.out.println("XXX: Cancel stop trading for unemployed villager " + this);
         // Cancel stopTrading() for unemployed villager
@@ -83,7 +100,11 @@ public abstract class VillagerMixin extends AbstractVillagerMixin implements Vil
      * @reason Cancel start trade if used item is inventory inspector
      */
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
-    protected void mixinMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    protected void mixinMobInteract(
+            Player player,
+            InteractionHand hand,
+            CallbackInfoReturnable<InteractionResult> cir
+    ) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.getItem() == EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get() && !isTrading()) {
             cir.setReturnValue(InteractionResult.PASS);

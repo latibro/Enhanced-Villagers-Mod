@@ -23,16 +23,22 @@ import net.minecraft.world.item.ItemStack;
 
 public class EnhancedVillagersMod {
     public static final String MOD_ID = "enhancedvillagers";
-
-    public static final CreativeModeTab ENHANGED_VILLAGERS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "enchanged_villagers"), () ->
-            new ItemStack(EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get()));
-
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
-    public static final RegistrySupplier<Item> VILLAGER_INVENTORY_INSPECTOR_ITEM = ITEMS.register("villager_inventory_inspector", VillagerInventoryInspectorItem::new);
-
+    public static final RegistrySupplier<Item> VILLAGER_INVENTORY_INSPECTOR_ITEM = ITEMS.register(
+            "villager_inventory_inspector",
+            VillagerInventoryInspectorItem::new
+    );
+    public static final CreativeModeTab ENHANGED_VILLAGERS_TAB = CreativeTabRegistry.create(new ResourceLocation(
+            MOD_ID,
+            "enchanged_villagers"
+    ), () ->
+                                                                                                    new ItemStack(
+                                                                                                            EnhancedVillagersMod.VILLAGER_INVENTORY_INSPECTOR_ITEM.get()));
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(MOD_ID, Registry.MENU_REGISTRY);
-
-    public static final RegistrySupplier<MenuType<VillagerInventoryMenu>> VILLAGER_INVENTORY_MENU = MENUS.register("villager_inventory_inspector", () -> new MenuType<>(VillagerInventoryMenu::new));
+    public static final RegistrySupplier<MenuType<VillagerInventoryMenu>> VILLAGER_INVENTORY_MENU = MENUS.register(
+            "villager_inventory_inspector",
+            () -> new MenuType<>(VillagerInventoryMenu::new)
+    );
 
     public EnhancedVillagersMod() {
         LifecycleEvent.SETUP.register(this::setup);
@@ -45,7 +51,10 @@ public class EnhancedVillagersMod {
         ITEMS.register();
         MENUS.register();
 
-        System.out.println(EnhancedVillagersExpectPlatform.getConfigDirectory().toAbsolutePath().normalize().toString());
+        System.out.println(EnhancedVillagersExpectPlatform.getConfigDirectory()
+                                                          .toAbsolutePath()
+                                                          .normalize()
+                                                          .toString());
     }
 
     private void setup() {

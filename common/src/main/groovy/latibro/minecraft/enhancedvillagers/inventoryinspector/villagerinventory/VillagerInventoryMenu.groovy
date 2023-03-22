@@ -81,7 +81,8 @@ public class VillagerInventoryMenu extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
-            if (i < 27 ? !this.moveItemStackTo(itemStack2, 27, this.slots.size(), true) : !this.moveItemStackTo(itemStack2, 0, 27, false)) {
+            if (i < 27 ? !this.moveItemStackTo(itemStack2, 27, this.slots.size(), true) :
+                !this.moveItemStackTo(itemStack2, 0, 27, false)) {
                 return ItemStack.EMPTY;
             }
             if (itemStack2.isEmpty()) {

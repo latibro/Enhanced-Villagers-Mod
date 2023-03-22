@@ -11,7 +11,9 @@ import net.minecraft.world.entity.player.Inventory
 
 @CompileStatic
 public class VillagerInventoryScreen extends AbstractContainerScreen<VillagerInventoryMenu> {
-    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation("textures/gui/container/generic_54.png");
+    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(
+            "textures/gui/container/generic_54.png"
+    );
 
     public VillagerInventoryScreen(VillagerInventoryMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);

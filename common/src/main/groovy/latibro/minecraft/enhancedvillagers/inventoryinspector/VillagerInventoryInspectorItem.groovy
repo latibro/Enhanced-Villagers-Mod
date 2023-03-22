@@ -20,7 +20,12 @@ public class VillagerInventoryInspectorItem extends Item {
     }
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity entity, InteractionHand hand) {
+    public InteractionResult interactLivingEntity(
+            ItemStack itemStack,
+            Player player,
+            LivingEntity entity,
+            InteractionHand hand
+    ) {
         System.out.println("XXX: Interact entity " + entity);
 
         if (entity instanceof AbstractVillager) {

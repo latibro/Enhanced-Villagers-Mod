@@ -25,10 +25,18 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-    common(project(path: ":fabric-like", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":fabric-like", configuration: "transformProductionFabric")) { transitive false }
+    common(project(path: ":common", configuration: "namedElements")) {
+        transitive false
+    }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) {
+        transitive false
+    }
+    common(project(path: ":fabric-like", configuration: "namedElements")) {
+        transitive false
+    }
+    shadowCommon(project(path: ":fabric-like", configuration: "transformProductionFabric")) {
+        transitive false
+    }
 }
 
 processResources {
@@ -60,7 +68,9 @@ jar {
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
+    from commonSources.archiveFile.map {
+        zipTree(it)
+    }
 }
 
 components.java {
