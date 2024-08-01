@@ -1,6 +1,6 @@
-package com.example.examplemod.platform;
+package com.latibro.minecraft.villager.platform;
 
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.latibro.minecraft.villager.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {

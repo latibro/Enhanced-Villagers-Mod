@@ -1,4 +1,4 @@
-package com.example.examplemod.platform.services;
+package com.latibro.minecraft.villager.platform.services;
 
 public interface IPlatformHelper {
 

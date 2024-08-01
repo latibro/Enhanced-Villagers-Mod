@@ -1,7 +1,7 @@
-package com.example.examplemod.platform;
+package com.latibro.minecraft.villager.platform;
 
-import com.example.examplemod.Constants;
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.latibro.minecraft.villager.Constants;
+import com.latibro.minecraft.villager.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
 
