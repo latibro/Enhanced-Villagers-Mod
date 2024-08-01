@@ -1,6 +1,8 @@
 package com.latibro.minecraft.villager;
 
+import com.latibro.minecraft.villager.inventoryinspector.VillagerInventoryInspectorItem;
 import com.latibro.minecraft.villager.platform.Services;
+import com.latibro.minecraft.villager.platform.services.RegistryService;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 
@@ -15,6 +17,11 @@ public class CommonClass {
     // code that gets invoked by the entry point of the loader specific projects.
     public static void init() {
         Constants.LOG.info("Villager Mod initializing");
+
+        var registryService = Services.get(RegistryService.class);
+
+        var villagerInventoryInspectorItemResourceName = "villager_inventory_inspector";
+        registryService.registerItem(villagerInventoryInspectorItemResourceName, VillagerInventoryInspectorItem::new);
 
         // It is common for all supported loaders to provide a similar feature that can not be used directly in the
         // common code. A popular way to get around this is using Java's built-in service loader feature to create
