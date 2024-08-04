@@ -1,0 +1,27 @@
+package com.latibro.minecraft.villager.inventoryinspector.villagerinventory;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+
+public class VillagerInventoryMenuProvider implements MenuProvider {
+
+    private final AbstractVillager villager;
+
+    public VillagerInventoryMenuProvider(AbstractVillager villager) {
+        this.villager = villager;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.literal("Villager Inventory");
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new VillagerInventoryMenu(id, playerInventory, villager);
+    }
+}

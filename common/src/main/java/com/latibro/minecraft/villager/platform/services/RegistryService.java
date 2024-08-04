@@ -1,5 +1,6 @@
 package com.latibro.minecraft.villager.platform.services;
 
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,10 +15,14 @@ public interface RegistryService {
 
     void registerBlockEntityType(String name, Supplier<BlockEntityType<?>> blockEntityTypeSupplier);
 
+    void registerMenuType(String name, Supplier<MenuType<?>> menuTypeSupplier);
+
     Block getBlock(String name);
 
     Item getItem(String name);
 
     BlockEntityType<?> getBlockEntityType(String name);
+
+    MenuType<?> getMenuType(String name);
 
 }

@@ -4,6 +4,7 @@ import com.latibro.minecraft.villager.Constants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,6 +35,13 @@ public class CommonRegistryService implements RegistryService {
     }
 
     @Override
+    public void registerMenuType(String name, Supplier<MenuType<?>> menuTypeSupplier) {
+        Registry.register(BuiltInRegistries.MENU,
+                          createResourceLocation(name),
+                          menuTypeSupplier.get());
+    }
+
+    @Override
     public Block getBlock(String name) {
         var block = BuiltInRegistries.BLOCK.get(createResourceLocation(name));
         return block;
@@ -49,6 +57,12 @@ public class CommonRegistryService implements RegistryService {
     public BlockEntityType<?> getBlockEntityType(String name) {
         BlockEntityType<?> blockEntityType = BuiltInRegistries.BLOCK_ENTITY_TYPE.get(createResourceLocation(name));
         return blockEntityType;
+    }
+
+    @Override
+    public MenuType<?> getMenuType(String name) {
+        MenuType<?> menuType = BuiltInRegistries.MENU.get(createResourceLocation(name));
+        return menuType;
     }
 
 }
