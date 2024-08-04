@@ -1,9 +1,12 @@
 package com.latibro.minecraft.villager;
 
 import com.latibro.minecraft.villager.inventoryinspector.VillagerInventoryInspectorItem;
+import com.latibro.minecraft.villager.inventoryinspector.villagerinventory.VillagerInventoryMenu;
 import com.latibro.minecraft.villager.platform.Services;
 import com.latibro.minecraft.villager.platform.services.RegistryService;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
@@ -22,6 +25,9 @@ public class CommonClass {
 
         var villagerInventoryInspectorItemResourceName = "villager_inventory_inspector";
         registryService.registerItem(villagerInventoryInspectorItemResourceName, VillagerInventoryInspectorItem::new);
+
+        var villagerInventoryScreenResourceName = "villager_inventory";
+        registryService.registerMenuType(villagerInventoryScreenResourceName, () -> new MenuType<>(VillagerInventoryMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
         // It is common for all supported loaders to provide a similar feature that can not be used directly in the
         // common code. A popular way to get around this is using Java's built-in service loader feature to create
