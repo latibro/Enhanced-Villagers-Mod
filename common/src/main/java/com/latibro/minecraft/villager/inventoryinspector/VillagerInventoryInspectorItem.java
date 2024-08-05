@@ -1,6 +1,7 @@
 package com.latibro.minecraft.villager.inventoryinspector;
 
 import com.latibro.minecraft.villager.Constants;
+import com.latibro.minecraft.villager.inventoryinspector.villagerinventory.VillagerInventoryMenuProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,12 +27,12 @@ public class VillagerInventoryInspectorItem extends Item {
     ) {
         Constants.LOG.info("Interact entity {}", entity);
 
-        if (entity instanceof AbstractVillager) {
+        if (entity instanceof AbstractVillager villager) {
             Constants.LOG.info("Interact villager {}", entity);
             if (player instanceof ServerPlayer) {
                 Constants.LOG.info("Open inventory {}", entity);
                 //MenuRegistry.openMenu(player, new VillagerInventoryMenuProvider(entity));
-                //player.openMenu(new VillagerInventoryMenuProvider(villager));
+                player.openMenu(new VillagerInventoryMenuProvider(villager));
             }
             return InteractionResult.SUCCESS;
         }

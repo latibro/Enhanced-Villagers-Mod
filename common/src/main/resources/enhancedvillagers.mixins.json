@@ -1,15 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.latibro.minecraft.villager",
+  "package": "com.latibro.minecraft.villager.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
-  "client": [
-    "mixin.AbstractVillagerMixin",
-    "mixin.VillagerMixin",
-    "mixin.WanderingTraderMixin"
+  "mixins": [
+    "AbstractVillagerMixin",
+    "VillagerMixin",
+    "WanderingTraderMixin"
   ],
+  "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1
