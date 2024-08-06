@@ -16,7 +16,7 @@ public class VillagerInventoryScreen extends AbstractContainerScreen<VillagerInv
 
     public VillagerInventoryScreen(VillagerInventoryMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
-        this.imageHeight = 114 + (3 * 18);
+        this.imageHeight = 114 + (4 * 18);
         this.inventoryLabelY = this.imageHeight - 94;
     }
 
@@ -27,8 +27,8 @@ public class VillagerInventoryScreen extends AbstractContainerScreen<VillagerInv
         RenderSystem.setShaderTexture(0, CONTAINER_BACKGROUND);
         int k = (this.width - this.imageWidth) / 2;
         int l = (this.height - this.imageHeight) / 2;
-        guiGraphics.blit(CONTAINER_BACKGROUND, k, l, 0, 0, this.imageWidth, (3 * 18) + 17);
-        guiGraphics.blit(CONTAINER_BACKGROUND, k, l + (3 * 18) + 17, 0, 126, this.imageWidth, 96 + 2);
+        guiGraphics.blit(CONTAINER_BACKGROUND, k, l, 0, 0, this.imageWidth, (4 * 18) + 17);
+        guiGraphics.blit(CONTAINER_BACKGROUND, k, l + (4 * 18) + 17, 0, 126, this.imageWidth, 96 + 2);
     }
 
     @Override

@@ -49,33 +49,33 @@ public class VillagerInventoryMenu extends AbstractContainerMenu {
         int villagerInventoryPosXOffset = 18;
 
         // Villager inventory
-        SimpleContainer villagerInventory = villager != null ? villager.getInventory() : new SimpleContainer(27);
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 9; k++) {
-                int villagerInventorySlotIndex = (j * 9) + k;
-                int slotPosX = 8 + (k * 18);
-                int slotPosY = villagerInventoryPosXOffset + (j * 18);
+        SimpleContainer villagerInventory = villager != null ? villager.getInventory() : new SimpleContainer(36);
+        for (int rowIndex = 0; rowIndex < 4; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
+                int villagerInventorySlotIndex = (rowIndex * 9) + columnIndex;
+                int slotPosX = 8 + (columnIndex * 18);
+                int slotPosY = villagerInventoryPosXOffset + (rowIndex * 18);
                 this.addSlot(new Slot(villagerInventory, villagerInventorySlotIndex, slotPosX, slotPosY));
             }
         }
 
-        int playerInventoryPosXOffset = villagerInventoryPosXOffset + 85 - 18;
+        int playerInventoryPosXOffset = villagerInventoryPosXOffset + (4 * 18) + 13;
 
         // Player inventory
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 9; k++) {
-                int playerInventorySlotIndex = (j * 9) + k + 9;
-                int slotPosX = 8 + (k * 18);
-                int slotPosY = playerInventoryPosXOffset + (j * 18);
+        for (int rowIndex = 0; rowIndex < 3; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
+                int playerInventorySlotIndex = (rowIndex * 9) + columnIndex + 9;
+                int slotPosX = 8 + (columnIndex * 18);
+                int slotPosY = playerInventoryPosXOffset + (rowIndex * 18);
                 this.addSlot(new Slot(playerInventory, playerInventorySlotIndex, slotPosX, slotPosY));
             }
         }
 
         // Player hotbar
-        for (int j = 0; j < 9; j++) {
-            int playerInventorySlotIndex = j;
-            int slotPosX = 8 + (j * 18);
-            int slotPosY = playerInventoryPosXOffset + 58;
+        for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
+            int playerInventorySlotIndex = columnIndex;
+            int slotPosX = 8 + (columnIndex * 18);
+            int slotPosY = playerInventoryPosXOffset + (3*18) + 4;
             this.addSlot(new Slot(playerInventory, playerInventorySlotIndex, slotPosX, slotPosY));
         }
     }
