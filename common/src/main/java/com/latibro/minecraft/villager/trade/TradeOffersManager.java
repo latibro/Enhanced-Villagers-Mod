@@ -10,6 +10,7 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 
+// Inpiration net.minecraft.world.entity.npc.VillagerTrades
 public class TradeOffersManager {
 
     private final AbstractVillager villager;
@@ -29,8 +30,11 @@ public class TradeOffersManager {
         }
 
         //TODO find items to buy, based on needed items not already in inventory
+
         if ((villager instanceof Villager) && ((Villager) villager).wantsMoreFood()) {
+            // Will buy bread if wants more food, and has payments to pay for it
             boolean hasPayment = villager.getInventory().countItem(Items.EMERALD) > 0;
+
             offers.add(
                     new MerchantOffer(
                             new ItemCost(Items.BREAD, 6),
@@ -51,13 +55,16 @@ public class TradeOffersManager {
             }
 
             if (itemStack.is(Items.EMERALD)) {
+                // Will not sell emeralds
                 continue;
             }
 
             if (itemStack.is(Items.BREAD) && villager instanceof Villager && !((Villager) villager).hasExcessFood()) {
+                // Will only sell bread if has excess food
                 continue;
             }
 
+            //TODO better pricing system
             ItemStack sellItemStack = itemStack.copy();
             sellItemStack.setCount(1);
             offers.add(new MerchantOffer(new ItemCost(Items.EMERALD, 1), sellItemStack, 1, 0, 0f));

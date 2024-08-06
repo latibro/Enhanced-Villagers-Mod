@@ -2,7 +2,6 @@ package com.latibro.minecraft.villager;
 
 import com.latibro.minecraft.villager.inventoryinspector.VillagerInventoryInspectorItem;
 import com.latibro.minecraft.villager.inventoryinspector.villagerinventory.VillagerInventoryMenu;
-import com.latibro.minecraft.villager.inventoryinspector.villagerinventory.VillagerInventoryScreen;
 import com.latibro.minecraft.villager.platform.Services;
 import com.latibro.minecraft.villager.platform.services.RegistryService;
 import net.minecraft.world.flag.FeatureFlags;
@@ -27,14 +26,18 @@ public class CommonClass {
 
         var villagerInventoryScreenResourceName = "villager_inventory";
         registryService.registerMenuType(villagerInventoryScreenResourceName, () -> new MenuType<>(VillagerInventoryMenu::new, FeatureFlags.DEFAULT_FLAGS));
-        registryService.registerMenuScreen(villagerInventoryScreenResourceName, () -> VillagerInventoryScreen::new);
+
+        if (Services.PLATFORM.isClientSide()) {
+            Runnable clientInit = CommonClientClass::init;
+            clientInit.run();
+        }
 
         // It is common for all supported loaders to provide a similar feature that can not be used directly in the
         // common code. A popular way to get around this is using Java's built-in service loader feature to create
         // your own abstraction layer. You can learn more about this in our provided services class. In this example
         // we have an interface in the common code and use a loader specific implementation to delegate our call to
         // the platform specific approach.
-        if (Services.PLATFORM.isModLoaded("assets/enhancedvillagers")) {
+        if (Services.PLATFORM.isModLoaded("enhancedvillagers")) {
             Constants.LOG.info("Villager Mod is loaded");
         }
     }

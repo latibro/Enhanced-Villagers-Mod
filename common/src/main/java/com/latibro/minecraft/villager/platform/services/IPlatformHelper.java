@@ -18,6 +18,20 @@ public interface IPlatformHelper {
     boolean isModLoaded(String modId);
 
     /**
+     * Check if the game is currently running client side (and not server side).
+     *
+     * @return True if running client side, false otherwise.
+     */
+    default boolean isClientSide() {
+        try {
+            Class.forName("net.minecraft.client.Minecraft");
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
      * Check if the game is currently in a development environment.
      *
      * @return True if in a development environment, false otherwise.
@@ -30,7 +44,6 @@ public interface IPlatformHelper {
      * @return The name of the environment type.
      */
     default String getEnvironmentName() {
-
         return isDevelopmentEnvironment() ? "development" : "production";
     }
 }
