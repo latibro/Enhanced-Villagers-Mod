@@ -1,9 +1,7 @@
 package com.latibro.minecraft.villager.mixin;
 
 import com.latibro.minecraft.villager.Constants;
-import com.latibro.minecraft.villager.inventory.VillagerInventory;
 import com.latibro.minecraft.villager.trade.TradeOffersManager;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -14,42 +12,12 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractVillager.class)
 public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchant {
-
-    private final VillagerInventory villagerInventory = new VillagerInventory((AbstractVillager) (Object) this);
-
-    /**
-     * @author Latibro
-     * @reason Replacing the villagers inventory
-     */
-    @Overwrite
-    public @NotNull SimpleContainer getInventory() {
-        return this.villagerInventory;
-    }
-
-    /**
-     * @author Latibro
-     * @reason Make sure direct field access to "inventory" is redirected to "getInventory()"
-     */
-    @Redirect(
-            method = "getSlot",
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/world/entity/npc/AbstractVillager;inventory:Lnet/minecraft/world/SimpleContainer;"
-                    //,opcode = Opcodes.GETFIELD
-            )
-    )
-    private SimpleContainer mixinFieldGetInventory(AbstractVillager villager) {
-        Constants.LOG.info("Get inventory field redirect {}", this);
-        return villager.getInventory();
-    }
 
     /**
      * @author Latibro
@@ -109,8 +77,5 @@ public abstract class AbstractVillagerMixin implements InventoryCarrier, Merchan
     }
 
     protected abstract int getVillagerLevel();
-
-    @Shadow
-    public abstract boolean isTrading();
 
 }
