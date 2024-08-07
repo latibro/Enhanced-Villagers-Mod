@@ -6,6 +6,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractVillagerMixin",
+    "IncpectableAbstractVillagerMixin",
+    "IncpectableVillagerMixin",
+    "IncpectableWanderingTraderMixin",
+    "LargeInventoryVillagerMixin",
+    "TradingUnemployedVillagerMixin",
     "VillagerMixin",
     "WanderingTraderMixin"
   ],
